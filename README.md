@@ -1,0 +1,3 @@
+# This is my E-commerce webproject
+
+This project will utilize Django, React, Rest APIs, Channels, websocket, etc...
