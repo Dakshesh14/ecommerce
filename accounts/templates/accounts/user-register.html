@@ -5,25 +5,24 @@
 {% block title %}Register{% endblock title %}
 
 {% block body %}
-<div class="container">
-    <div class="row mt-5">
-        <h2 class="text-uppercase fw-bold m-0">Join us now!</h2>
-        <p class="p-small m-0">This is the best place to talk about animals.</p>
-    </div>
-    <div class="row mt-3 mb-5">
-        <div class="mx-auto">
-            <form method="POST">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <p class="text-muted p-small mt-2">
-                    Already have an account? <a href="{% url 'accounts:login' %}">Login In</a> instead.
-                </p>
-                <button type="submit" class="btn-custom btn-filled">
-                    register
-                </button>
-            </form>
+
+<section class="login_box_area section-margin">
+    <div class="container">
+        <div class="col-12 px-2 px-md-5">
+            <div class="d-flex h-100 justify-content-center flex-column">
+                <h3>Register</h3>
+                <form method="POST"">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <p class=" text-muted p-small mt-2">
+                    Already have an account? <a href="{% url 'accounts:login' %}">Login Now!</a>
+                    </p>
+                    <button type="submit" value="submit" class="button button-login">Log In</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+    </div>
+</section>
 
 {% endblock %}

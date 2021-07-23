@@ -5,21 +5,24 @@
 {% block title %}Login{% endblock title %}
 
 {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="mx-auto my-5">
-            <form method="POST">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <p class="text-muted p-small mt-2">
+
+<section class="login_box_area section-margin">
+    <div class="container">
+        <div class="col-12 px-2 px-md-5">
+            <div class="d-flex h-100 justify-content-center flex-column">
+                <h3>Login</h3>
+                <form method="POST"">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <p class=" text-muted p-small mt-2">
                     Don't have an account? <a href="{% url 'accounts:register' %}">Register</a> instead.
-                </p>
-                <button type="submit" class="btn-custom btn-filled">
-                    login in
-                </button>
-            </form>
+                    </p>
+                    <button type="submit" value="submit" class="button button-login">Log In</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+    </div>
+</section>
 
 {% endblock %}
