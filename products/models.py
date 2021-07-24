@@ -5,6 +5,12 @@ from django.template.defaultfilters import slugify
 from django.db.models import Q
 
 
+# django image kit model
+# https://pypi.org/project/django-imagekit/
+from imagekit.models import ImageSpecField, ProcessedImageField
+from imagekit.processors import Resize
+
+
 class Category(models.Model):
     ct = models.CharField(max_length=255)
 
@@ -29,7 +35,8 @@ class Item(models.Model):
 
     price = models.IntegerField()
 
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(
+        'Category', on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=2, choices=status_choice)
     date_added = models.DateField(auto_now=True)
 
@@ -47,9 +54,31 @@ class Item(models.Model):
         else:
             today = date.today()
 
-        self.title_slug = slugify(self.title) + '-' + today.strftime("%d-%b-%Y")
+        self.title_slug = slugify(self.title) + '-' + \
+            today.strftime("%d-%b-%Y")
         super(Item, self).save(*args, **kwargs)
+    
+    def get_first_thumbnail_img(self):
+        img = ItemImage.objects.filter(item=self)
+        if img.exists():
+            return img.first().image_small
+        else:
+            return None
+    
+    def get_product_image(self):
+        img = ItemImage.objects.filter(item=self).distinct()
+        return img
 
     def __str__(self):
         return self.title
 
+
+class ItemImage(models.Model):
+    class Meta:
+        verbose_name = 'Item image'
+        verbose_name_plural = 'Item images'
+
+    image = ProcessedImageField(upload_to="items", processors=[Resize(550, 550)], format="JPEG")
+    image_small = ImageSpecField(source="image", processors=[Resize(200, 200)], format="JPEG")
+
+    item = models.ForeignKey('Item', related_name='item_img' ,on_delete=models.CASCADE)

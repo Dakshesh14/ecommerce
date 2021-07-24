@@ -3,7 +3,13 @@ from django.contrib import admin
 from .models import (
     Item,
     Category,
+    ItemImage,
 )
+
+class InLinesImages(admin.TabularInline):
+    model = ItemImage
+    extra = 1
+    max_num = 10
 
 
 admin.site.register(Category)
@@ -18,3 +24,8 @@ class ItemAdmin(admin.ModelAdmin):
     list_editable = ('status',)
 
     list_per_page = 15
+
+    # inlines
+    inlines = [
+        InLinesImages,
+    ]
