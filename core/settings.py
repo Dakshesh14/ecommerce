@@ -47,12 +47,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third party
+    'ckeditor',
+    'ckeditor_uploader',
     'crispy_forms',
     'imagekit',
     'rest_framework',
 
     # custom made
     'accounts.apps.AccountsConfig',
+    'blogs.apps.BlogsConfig',
 
 ]
 
@@ -161,3 +164,9 @@ REST_FRAMEWORK = {
 # https://django-crispy-forms.readthedocs.io/en/latest/index.html
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# # django ckeditor
+# # https://pypi.org/project/django-ckeditor/
+
+CKEDITOR_UPLOAD_PATH = 'uploads'
