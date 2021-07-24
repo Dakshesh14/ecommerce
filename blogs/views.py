@@ -5,10 +5,6 @@ from django.db.models import Q
 from rest_framework import generics
 from rest_framework.filters import SearchFilter
 
-
-# importing pagination
-from .pagination import BlogPageNumberPagination
-
 # importing serializers 
 from .serializers import (
     BlogSerializer,
@@ -26,7 +22,6 @@ class BlogListAPI(generics.ListAPIView):
         'title',
         'content',
     ]
-    pagination_class = BlogPageNumberPagination
 
     def get_queryset(self):
         qs = Blog.get_published_blogs.filter(~Q(status='PR'))
