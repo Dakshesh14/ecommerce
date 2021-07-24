@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     # custom made
     'accounts.apps.AccountsConfig',
     'blogs.apps.BlogsConfig',
-
+    'products.apps.ProductsConfig',
 ]
 
 MIDDLEWARE = [
