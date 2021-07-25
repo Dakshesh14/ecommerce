@@ -1,11 +1,15 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react'
 
-function useFetch(page) {
+function useFetch(page, category, ordering, search) {
 
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(false);
-    const url = "http://127.0.0.1:8000/api/items/"
+    const url = "../api/items/"
+
+    useEffect(() => {
+        setItems([])
+    }, [category, ordering, search])
 
     useEffect(() => {
         let cancel
@@ -14,6 +18,9 @@ function useFetch(page) {
             url: url,
             params: {
                 page: page,
+                search: search,
+                ct_filter: category,
+                ordering: ordering,
             },
             cancelToken: new axios.CancelToken(c => cancel = c),
         }).then(res => {
@@ -25,7 +32,7 @@ function useFetch(page) {
             if (axios.isCancel(e)) return setItems([])
         })
         return () => cancel()
-    }, [page])
+    }, [page, category, ordering, search])
 
     return { hasMore, items }
 }

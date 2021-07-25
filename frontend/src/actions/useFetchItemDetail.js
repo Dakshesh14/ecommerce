@@ -5,7 +5,7 @@ function useFetch(slug) {
 
     const [loading, setLoading] = useState(true);
     const [item, setItem] = useState({});
-    const url = `http://127.0.0.1:8000/api/item/${slug}`
+    const url = `../api/item/${slug}`
 
     useEffect(() => {
         setLoading(true)

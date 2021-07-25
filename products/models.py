@@ -42,11 +42,12 @@ class Item(models.Model):
 
     title_slug = models.CharField(max_length=350)
 
-    class get_published_blogs(models.Manager):
+    class get_published_items(models.Manager):
         def get_queryset(self):
             return super().get_queryset().filter(~Q(status='D'))
 
-    objects = get_published_blogs()
+    objects = models.Manager()
+    get_published_items = get_published_items()
 
     def save(self, *args, **kwargs):
         if self.date_added:

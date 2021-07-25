@@ -4,8 +4,17 @@ from rest_framework import serializers
 from .models import (
     Item,
     ItemImage,
+    Category,
 )
 
+
+class CategoryListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = (
+            'id',
+            'ct',
+        )
 
 class ItemListSerializer(serializers.ModelSerializer):
     category = serializers.CharField(source="category.ct")

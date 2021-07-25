@@ -17,7 +17,7 @@ function ItemCard({ item }) {
                 <div className="card-body">
                     <p>{item.category}</p>
                     <h4 className="card-product__title">
-                        <Link to={'item/'+item.title_slug}>{item.title}</Link>
+                        <Link to={'item/' + item.title_slug}>{item.title}</Link>
                     </h4>
                     <p className="card-product__price">${item.price}</p>
                 </div>
