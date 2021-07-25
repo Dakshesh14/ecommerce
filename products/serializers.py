@@ -18,6 +18,7 @@ class ItemListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = (
+            'id',
             'title',
             'content',
             'detail',
@@ -28,10 +29,24 @@ class ItemListSerializer(serializers.ModelSerializer):
         )
 
 
+class FeaturedProductSerializer(serializers.ModelSerializer):
+    thumbnail = serializers.ImageField(source="get_first_thumbnail_img")
+
+    class Meta:
+        model = Item
+        fields = (
+            'id',
+            'title',
+            'thumbnail',
+            'price',
+        )
+
+
 class ItemDetailSerializer(serializers.ModelSerializer):
     category = serializers.CharField(source="category.ct")
     status = serializers.CharField(source='get_status_display')
     images = serializers.SerializerMethodField()
+    featured_products = serializers.SerializerMethodField()
 
     class Meta:
         model = Item
@@ -41,8 +56,14 @@ class ItemDetailSerializer(serializers.ModelSerializer):
             'price',
             'status',
             'category',
+            'featured_products',
             'images',
         )
+
+    def get_featured_products(self, obj):
+        children = obj.get_featured_product()
+        serializered_children = FeaturedProductSerializer(children, many=True)
+        return serializered_children.data
 
     def get_images(self, obj):
         children = obj.get_product_image()

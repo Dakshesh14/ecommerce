@@ -1,7 +1,8 @@
 from django.urls import path
 from django.views.generic import TemplateView
-appname = 'frontend'
+
+app_name = 'frontend'
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="frontend/index.html"), name='some'),
+    path('', TemplateView.as_view(template_name="frontend/index.html"), name='frontend'),
 ]

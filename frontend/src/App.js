@@ -12,33 +12,30 @@ import BlogDetail from './components/BlogDetail';
 
 function App() {
     return (
-        <>
-            <h1>This is react</h1>
-            <Router>
-                <Switch>
-                    <Route
-                        path='/items'
-                        component={ItemList}
-                        exact
-                    />
-                    <Route
-                        path='/item/:slug'
-                        component={ItemDetail}
-                        exact
-                    />
-                    <Route
-                        path='/blogs'
-                        component={BlogList}
-                        exact
-                    />
-                    <Route
-                        path='/blog/:slug'
-                        component={BlogDetail}
-                        exact
-                    />
-                </Switch>
-            </Router>
-        </>
+        <Router>
+            <Switch>
+                <Route
+                    path='/items'
+                    component={ItemList}
+                    exact
+                />
+                <Route
+                    path='/item/:slug'
+                    component={ItemDetail}
+                    exact
+                />
+                <Route
+                    path='/blogs'
+                    component={BlogList}
+                    exact
+                />
+                <Route
+                    path='/blog/:slug'
+                    component={BlogDetail}
+                    exact
+                />
+            </Switch>
+        </Router>
     )
 }
 

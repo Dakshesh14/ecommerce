@@ -6,6 +6,16 @@ $(function() {
         forceHeight: false
     });
 
+    //------- single product area carousel -------//
+    $(".s_Product_carousel").owlCarousel({
+        items: 1,
+        autoplay: false,
+        autoplayTimeout: 5000,
+        loop: false,
+        nav: false,
+        dots: false
+    });
+
     //------- Active Nice Select --------//
     $('select').niceSelect();
 
@@ -55,16 +65,6 @@ $(function() {
             }
         })
     }
-
-    //------- single product area carousel -------//
-    $(".s_Product_carousel").owlCarousel({
-        items: 1,
-        autoplay: false,
-        autoplayTimeout: 5000,
-        loop: true,
-        nav: false,
-        dots: false
-    });
 
     //------- mailchimp --------//  
     function mailChimp() {
