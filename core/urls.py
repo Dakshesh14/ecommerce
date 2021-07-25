@@ -17,9 +17,6 @@ urlpatterns = [
 
     # for blogs related urls
     path('', include("products.urls"), name='products'),
-    
-    # for index page
-    path('', TemplateView.as_view(template_name='pages/index.html'), name="index"),
 
     # for frontend related urls
     path('', include("frontend.urls"), name='frontend'),

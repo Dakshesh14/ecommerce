@@ -1,8 +1,9 @@
 from datetime import date
 
 from django.db import models
-from django.template.defaultfilters import slugify
 from django.db.models import Q
+from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 
 # django image kit model
@@ -46,8 +47,13 @@ class Item(models.Model):
         def get_queryset(self):
             return super().get_queryset().filter(~Q(status='D'))
 
+    class get_featured_product(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(Q(status='F'))
+
     objects = models.Manager()
     get_published_items = get_published_items()
+    get_featured_product = get_featured_product()
 
     def save(self, *args, **kwargs):
         if self.date_added:
@@ -65,9 +71,6 @@ class Item(models.Model):
         else:
             return None
 
-    def get_featured_product(self):
-        return Item.objects.filter(status='F').distinct()
-
     def get_product_image(self):
         print("get_product_image called")
         img = ItemImage.objects.filter(item=self).distinct()
@@ -82,10 +85,34 @@ class ItemImage(models.Model):
         verbose_name = 'Item image'
         verbose_name_plural = 'Item images'
 
-    image = ProcessedImageField(upload_to="items", processors=[
-                                Resize(550, 550)], format="JPEG")
-    image_small = ImageSpecField(source="image", processors=[
-                                 Resize(200, 200)], format="JPEG")
+    image = ProcessedImageField(upload_to="items", processors=[Resize(550, 550)], format="JPEG")
+    image_small = ImageSpecField(source="image", processors=[Resize(200, 200)], format="JPEG")
 
-    item = models.ForeignKey(
-        'Item', related_name='item_img', on_delete=models.CASCADE)
+    item = models.ForeignKey('Item', related_name='item_img', on_delete=models.CASCADE)
+
+
+class CartItem(models.Model):
+    item = models.ForeignKey('Item',related_name='cart_item',on_delete=models.CASCADE)
+    cart_obj = models.ForeignKey('Cart',related_name="cart_obj",on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.item} - {self.quantity}"
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, related_name="user_cart_item", on_delete=models.CASCADE)
+    total_price = models.IntegerField()
+
+    created = models.DateField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        total_price = 0
+        qs = self.cart_obj.all()
+        for item in qs:
+            total_price += item.item.price
+        self.total_price = total_price
+        super(Cart, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.user}"

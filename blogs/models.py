@@ -45,6 +45,7 @@ class Category(models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=255)
     title_slug = models.SlugField(max_length=355,unique=True,blank=True,null=True)
+    about = models.CharField(max_length=500)
 
     content = RichTextUploadingField()
 

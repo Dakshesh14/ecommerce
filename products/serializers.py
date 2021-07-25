@@ -16,6 +16,7 @@ class CategoryListSerializer(serializers.ModelSerializer):
             'ct',
         )
 
+
 class ItemListSerializer(serializers.ModelSerializer):
     category = serializers.CharField(source="category.ct")
     detail = serializers.HyperlinkedIdentityField(
@@ -70,8 +71,8 @@ class ItemDetailSerializer(serializers.ModelSerializer):
         )
 
     def get_featured_products(self, obj):
-        children = obj.get_featured_product()
-        serializered_children = FeaturedProductSerializer(children, many=True)
+        qs = Item.get_featured_product.all()
+        serializered_children = FeaturedProductSerializer(qs, many=True)
         return serializered_children.data
 
     def get_images(self, obj):

@@ -4,6 +4,8 @@ from .models import (
     Item,
     Category,
     ItemImage,
+    CartItem,
+    Cart,
 )
 
 class InLinesImages(admin.TabularInline):
@@ -13,6 +15,8 @@ class InLinesImages(admin.TabularInline):
 
 
 admin.site.register(Category)
+admin.site.register(CartItem)
+admin.site.register(Cart)
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
