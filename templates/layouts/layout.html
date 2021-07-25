@@ -16,6 +16,18 @@
     <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <script defer src="{% static 'vendors/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script defer src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script defer src="{% static 'vendors/owl-carousel/owl.carousel.min.js' %}"></script>
+    <script defer src="{% static 'vendors/nice-select/jquery.nice-select.min.js' %}"></script>
+    <script defer src="{% static 'vendors/skrollr.min.js' %}"></script>
+    <script defer src="{% static 'vendors/jquery.ajaxchimp.min.js' %}"></script>
+    <script defer src="{% static 'js/main.js' %}"></script>
+
+
+    {% block js %}{% endblock js %}
+
 </head>
 
 <body>
@@ -140,16 +152,6 @@
             </div>
         </div>
         <!--================ End footer Area  =================-->
-
-
-        <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js' %}"></script>
-        <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js' %}"></script>
-        <script src="{% static 'vendors/nice-select/jquery.nice-select.min.js' %}"></script>
-        <script src="{% static 'vendors/skrollr.min.js' %}"></script>
-        <script src="{% static 'vendors/jquery.ajaxchimp.min.js' %}"></script>
-        <script src="{% static 'js/main.js' %}"></script>
-
 </body>
 
 </html>

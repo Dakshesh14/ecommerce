@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from django.views.generic import TemplateView
 
@@ -17,15 +17,18 @@ urlpatterns = [
 
     # for blogs related urls
     path('', include("products.urls"), name='products'),
+    
+    # for frontend related urls
+    path('', include("frontend.urls"), name='frontend'),
 
     # for index page
-    path('', TemplateView.as_view(template_name='pages/index.html'), name="index"),
+    path('home', TemplateView.as_view(template_name='pages/index.html'), name="index"),
 
     # for ckeditor
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# urlpatterns += [
-#     re_path(r'^(?:.*)$', TemplateView.as_view(template_name='frontend/index.html')),
-# ]
+urlpatterns += [
+    re_path(r'^(?:.*)$', TemplateView.as_view(template_name='frontend/index.html')),
+]
