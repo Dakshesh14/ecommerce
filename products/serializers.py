@@ -47,6 +47,7 @@ class FeaturedProductSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'title',
+            'title_slug',
             'thumbnail',
             'price',
         )

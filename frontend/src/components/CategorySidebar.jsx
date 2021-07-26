@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import axios from 'axios';
-
 function CategorySidebar({ setCategory }) {
 
     const [categories, setCategories] = useState([]);

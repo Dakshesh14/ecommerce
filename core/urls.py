@@ -13,7 +13,7 @@ urlpatterns = [
     path('accounts/', include("accounts.urls"), name='accounts'),
 
     # for blogs related urls
-    path('blog/', include("blogs.urls"), name='blog'),
+    path('', include("blogs.urls"), name='blog'),
 
     # for blogs related urls
     path('', include("products.urls"), name='products'),
