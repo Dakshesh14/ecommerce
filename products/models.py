@@ -1,3 +1,5 @@
+import uuid
+
 from datetime import date
 
 from django.db import models
@@ -91,28 +93,57 @@ class ItemImage(models.Model):
     item = models.ForeignKey('Item', related_name='item_img', on_delete=models.CASCADE)
 
 
-class CartItem(models.Model):
-    item = models.ForeignKey('Item',related_name='cart_item',on_delete=models.CASCADE)
-    cart_obj = models.ForeignKey('Cart',related_name="cart_obj",on_delete=models.CASCADE)
+class Cart(models.Model):
+    user = models.ForeignKey(User, related_name='user_cart', on_delete=models.CASCADE)
+    item = models.ForeignKey('Item', related_name='cart_item', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+
+    def get_total_price(self):
+        total_price = 0
+        if request.user.is_authenticated:
+            qs = Cart.objects.filter(user=request.user).distinct()
+            if qs.exists():
+                total_price = sum([item.item.price * item.quantity for item in qs])
+
+        return total_price
 
     def __str__(self):
         return f"{self.item} - {self.quantity}"
 
 
-class Cart(models.Model):
-    user = models.ForeignKey(User, related_name="user_cart_item", on_delete=models.CASCADE)
-    total_price = models.IntegerField()
-
-    created = models.DateField(auto_now=True)
-
-    def save(self, *args, **kwargs):
-        total_price = 0
-        qs = self.cart_obj.all()
-        for item in qs:
-            total_price += item.item.price
-        self.total_price = total_price
-        super(Cart, self).save(*args, **kwargs)
+class OrderItem(models.Model):
+    user = models.ForeignKey(User, related_name="user_orderitem", on_delete=models.CASCADE)
+    item = models.ForeignKey('Item', related_name='order_item', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    order = models.ForeignKey('Order', related_name='order', on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.user}"
+        return f"{self.user} - added {self.item.title} in their order."
+
+
+class Order(models.Model):
+
+    order_status = (
+        ('P', 'Processing'),
+        ('A', 'Accepted'),
+        ('D', 'Delivered'),
+        ('F', 'Finished'),
+    )
+
+    order_id = models.UUIDField(default=uuid.uuid4, unique=True)
+    user = models.ForeignKey(User, related_name="user_order", on_delete=models.CASCADE)
+    status = models.CharField(choices=order_status, max_length=1, default='P')
+    created_date = models.DateField(auto_now=True)
+
+    total_price = models.IntegerField(default=10000)
+
+    def save(self, *args, **kwargs):
+        qs = OrderItem.objects.filter(
+            order=self,
+            ordered=False
+        ).distinct()
+        if qs.exists():
+            total_price = sum([item.item.price * item.quantity for item in qs])
+            self.total_price = total_price
+        super(Order, self).save(*args, **kwargs)
