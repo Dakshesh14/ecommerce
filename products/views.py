@@ -3,9 +3,9 @@ import razorpay
 # django imports
 from django.db.models import Q
 from django.conf import settings
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, reverse, HttpResponse
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, reverse, HttpResponse
 
 # rest_framework imports
 from rest_framework import generics
@@ -139,8 +139,10 @@ def order_items(request):
                 order=order,
             )
         order.save()  # saving order so that it calculate total price
+
         rz_key = settings.RAZORPAY_KEY
         _srz_key = settings.RAZORPAY_SECURE_KEY
+        
         client = razorpay.Client(auth=(rz_key, _srz_key))
         response = client.order.create({
             "amount": order.total_price*100,
@@ -161,4 +163,7 @@ def payment_success(request):
         order = Order.objects.get(order_id=order_id)
         order.status = 'A'
         order.save()
-        return render(request, "products/success.html", {})
+
+        return render(request, "products/success.html", {
+            "qs": order,
+        })

@@ -2,7 +2,47 @@
 
 
 {% block body %}
-    <h1>
-        Payment complete
-    </h1>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            Your order is completed
+        </div>
+        <div class="col-12">
+            <table class="table border">
+                <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for x in qs.order.all %}
+                    <tr>
+                        <th scope="row">
+                            {{ x.item.title }}
+                        </th>
+                        <td>
+                            {{ x.item.price }}
+                        </td>
+                        <td>
+                            {{ x.quantity }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <td colspan="2">Subtotal</td>
+                        <td>
+                            {{ qs.total_price }}
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 {% endblock body %}
