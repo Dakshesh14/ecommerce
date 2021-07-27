@@ -11,7 +11,13 @@ function ItemCard({ item }) {
                 <div className="card-product__img">
                     <img className="card-img" src={item.thumbnail} alt="" />
                     <ul className="card-product__imgOverlay">
-                        <li><button><i className="ti-shopping-cart"></i></button></li>
+                        <li>
+                            <button
+                                type="button"
+                                onClick={() => cartActive(item.title_slug, 1, 'POST')}>
+                                <i className="ti-shopping-cart"></i>
+                            </button>
+                        </li>
                     </ul>
                 </div>
                 <div className="card-body">

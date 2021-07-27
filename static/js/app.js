@@ -15,11 +15,11 @@ let getCookie = function() { // for django csrf protection
 };
 
 
-const addToCart = (slug, quantity = 1) => {
+const cartActive = (slug, quantity = 1, action) => {
     let token = getCookie();
     axios({
-        method: 'POST',
-        url: addToCartUrl,
+        method: action,
+        url: cartActiveUrl,
         headers: {
             'accept': 'application/json',
             'X-CSRFToken': token,

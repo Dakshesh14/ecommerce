@@ -44,6 +44,7 @@ function ItemList() {
                         <div className="filter-bar d-flex flex-wrap align-items-center">
                             <div className="sorting mr-auto">
                                 <select onChange={handleChange} className="custom-select">
+                                    <option value="">Default Filtering</option>
                                     <option value="price">Price (low to high)</option>
                                     <option value="-price">Price (high to low)</option>
                                 </select>

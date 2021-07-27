@@ -74,7 +74,6 @@ class Item(models.Model):
             return None
 
     def get_product_image(self):
-        print("get_product_image called")
         img = ItemImage.objects.filter(item=self).distinct()
         return img
 
@@ -98,14 +97,9 @@ class Cart(models.Model):
     item = models.ForeignKey('Item', related_name='cart_item', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
-    def get_total_price(self):
-        total_price = 0
-        if request.user.is_authenticated:
-            qs = Cart.objects.filter(user=request.user).distinct()
-            if qs.exists():
-                total_price = sum([item.item.price * item.quantity for item in qs])
 
-        return total_price
+    def item_total(self):
+        return self.item.price * self.quantity
 
     def __str__(self):
         return f"{self.item} - {self.quantity}"

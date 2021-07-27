@@ -67,7 +67,7 @@ function ItemDetail() {
                                     <span
                                         className="button primary-btn ml-2"
                                         type="button"
-                                        onClick={() => addToCart(item.title_slug, quantity)}
+                                        onClick={() => cartActive(item.title_slug, quantity, 'POST')}
                                     >Add to Cart</span>
                                 </div>
                             </div>

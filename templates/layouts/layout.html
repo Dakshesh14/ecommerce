@@ -8,23 +8,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>E-commerce</title>
     <link rel="icon" href="img/Fevicon.png" type="image/png">
+
+    <!-- linking css -->
+
+    <!-- bootstrap -->
     <link rel="stylesheet" href="{% static 'vendors/bootstrap/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'vendors/fontawesome/css/all.min.css' %}">
+
+    <!-- themify icon -->
     <link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css' %}">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.20/sweetalert2.min.css"/>
+    <!-- sweetalert2 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.20/sweetalert2.min.css" />
 
+    <!-- custom css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+    <!-- linking js -->
+
+    <!-- jquery -->
     <script defer src="{% static 'vendors/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script defer src="{% static 'vendors/jquery.ajaxchimp.min.js' %}"></script>
+
+    <!-- bootstrap -->
     <script defer src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js' %}"></script>
 
-    <script defer src="{% static 'vendors/jquery.ajaxchimp.min.js' %}"></script>
+    <!-- axios -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
+    <!-- sweetalert2 -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.20/sweetalert2.min.js"></script>
+
+    <!-- custom  -->
     <script defer>
-        const addToCartUrl = "{% url 'products:cart' %}"
+        const cartActiveUrl = "{% url 'products:cart' %}"
     </script>
     <script defer src="{% static 'js/app.js' %}"></script>
 
@@ -39,68 +56,8 @@
 
     {% block body %}{% endblock body %}
 
+    {% include 'layouts/footer.html' %}
 
-    <footer class="footer">
-        <div class="footer-area">
-            <div class="container">
-                <div class="row section_gap">
-                    <div class="col-lg-5 col-md-6 col-sm-6">
-                        <div class="single-footer-widget tp_widgets">
-                            <h4 class="footer_title large_title">Our Mission</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa fuga est aliquam quasi
-                                dolorem tempora consequatur! Dolorem mollitia voluptas est corrupti ipsa necessitatibus
-                                tempore quisquam iusto neque, corporis, commodi esse.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
-                        <div class="single-footer-widget tp_widgets">
-                            <h4 class="footer_title">Quick Links</h4>
-                            <ul class="list">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Shop</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Product</a></li>
-                                <li><a href="#">Brand</a></li>
-                                <li><a href="#">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
-                        <div class="single-footer-widget tp_widgets">
-                            <h4 class="footer_title">Contact Us</h4>
-                            <div class="ml-40">
-                                <p class="sm-head">
-                                    <span class="fa fa-location-arrow"></span>
-                                    Head Office
-                                </p>
-                                <p>123, Main Street, Your City</p>
-
-                                <p class="sm-head">
-                                    <span class="fa fa-phone"></span>
-                                    Phone Number
-                                </p>
-                                <p>
-                                    +123 456 7890 <br>
-                                    +123 456 7890
-                                </p>
-
-                                <p class="sm-head">
-                                    <span class="fa fa-envelope"></span>
-                                    Email
-                                </p>
-                                <p>
-                                    free@infoexample.com <br>
-                                    www.infoexample.com
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 
 </html>

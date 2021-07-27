@@ -1,5 +1,6 @@
 # django imports
 from django.db.models import Q
+from django.shortcuts import render
 
 # rest_framework imports
 from rest_framework import generics
@@ -72,7 +73,7 @@ class CartToggleAPI(APIView):
 
         slug = request.data.get("slug")
         quantity = request.data.get("quantity", 1)
-        
+
         try:
             item = Item.objects.get(title_slug=slug)
         except Item.DoesNotExist:
@@ -84,16 +85,22 @@ class CartToggleAPI(APIView):
             item=item,
         )
         if not created:
-            if not quantity:
-                cart.quantity += 1
-            else:
-                print(quantity)
-                cart.quantity = quantity
+            cart.quantity = quantity
             cart.save()
             return Response({
-                "message": f"Product quantity has been increased to {cart.quantity}"
+                "message": f"{item.title} has been added to your cart!"
             }, status=HTTP_202_ACCEPTED)
 
         return Response({
             "message": f"{item.title} has been added to your cart!"
         }, status=HTTP_201_CREATED)
+
+
+def user_cart(request):
+    qs = Cart.objects.filter(user=request.user).distinct()
+    total_price = sum([item.item.price * item.quantity for item in qs])
+    
+    return render(request, "products/user-cart.html", {
+        "qs": qs,
+        "total_price": total_price,
+    })

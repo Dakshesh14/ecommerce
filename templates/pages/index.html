@@ -4,7 +4,7 @@
 {% block body %}
 <main class="site-main">
 
-    
+
     <section class="hero-banner">
         <div class="container">
             <div class="row no-gutters align-items-center pt-60px">
@@ -21,42 +21,12 @@
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas molestiae eligendi aut
                             temporibus voluptatum error eius tempore suscipit modi quod!
                         </p>
-                        <a class="button button-hero" href="#">Shop Now</a>
+                        <a class="button button-hero" href="{% url 'frontend:frontend' %}items">Shop Now</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-
-
-    <section class="section-margin mt-0">
-        <div class="owl-carousel owl-theme hero-carousel">
-            <div class="hero-carousel__slide">
-                <img src="img/home/hero-slide1.png" alt="" class="img-fluid">
-                <a href="#" class="hero-carousel__slideOverlay">
-                    <h3>Wireless Headphone</h3>
-                    <p>Accessories Item</p>
-                </a>
-            </div>
-            <div class="hero-carousel__slide">
-                <img src="img/home/hero-slide2.png" alt="" class="img-fluid">
-                <a href="#" class="hero-carousel__slideOverlay">
-                    <h3>Wireless Headphone</h3>
-                    <p>Accessories Item</p>
-                </a>
-            </div>
-            <div class="hero-carousel__slide">
-                <img src="img/home/hero-slide3.png" alt="" class="img-fluid">
-                <a href="#" class="hero-carousel__slideOverlay">
-                    <h3>Wireless Headphone</h3>
-                    <p>Accessories Item</p>
-                </a>
-            </div>
-        </div>
-    </section>
-    
-
 
     <section class="section-margin calc-60px">
         <div class="container">
@@ -71,13 +41,12 @@
                     <div class="card text-center card-product">
                         <div class="card-product__img">
                             <img class="card-img" src="{{ item.get_first_thumbnail_img.url }}" alt="">
-                            <ul class="card-product__imgOverlay">
-                                <li><button><i class="ti-shopping-cart"></i></button></li>
-                            </ul>
                         </div>
                         <div class="card-body">
                             <p>{{ item.category.ct }}</p>
-                            <h4 class="card-product__title"><a href="{% url 'frontend:frontend' %}item/{{ item.title_slug }}">{{ item.title }}</a></h4>
+                            <h4 class="card-product__title"><a
+                                    href="{% url 'frontend:frontend' %}item/{{ item.title_slug }}">{{ item.title }}</a>
+                            </h4>
                             <p class="card-product__price">${{ item.price }}</p>
                         </div>
                     </div>
@@ -87,9 +56,9 @@
             </div>
         </div>
     </section>
-    
 
-    
+
+
     <section class="blog">
         <div class="container">
             <div class="section-intro pb-60px">
@@ -97,8 +66,7 @@
                 <h2>Latest <span class="section-intro__style">Blogs</span></h2>
             </div>
 
-            <div class="row">
-
+            <div class="row mb-5">
 
                 {% for blog in blog_qs %}
                 <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
@@ -118,7 +86,9 @@
                             <p>
                                 {{ blog.about|truncatechars:60 }}
                             </p>
-                            <a class="card-blog__link" href="{% url 'frontend:frontend' %}blog/{{ blog.title_slug }}">Read More <i class="ti-arrow-right"></i></a>
+                            <a class="card-blog__link"
+                                href="{% url 'frontend:frontend' %}blog/{{ blog.title_slug }}">Read More <i
+                                    class="ti-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -128,34 +98,6 @@
 
         </div>
     </section>
-    
-
-    <section class="subscribe-position">
-        <div class="container">
-            <div class="subscribe text-center">
-                <h3 class="subscribe__title">Get Update From Anywhere</h3>
-                <p>Bearing Void gathering light light his eavening unto dont afraid</p>
-                <div id="mc_embed_signup">
-                    <form target="_blank"
-                        action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                        method="get" class="subscribe-form form-inline mt-5 pt-1">
-                        <div class="form-group ml-sm-auto">
-                            <input class="form-control mb-1" type="email" name="EMAIL" placeholder="Enter your email"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '">
-                            <div class="info"></div>
-                        </div>
-                        <button class="button button-subscribe mr-auto mb-1" type="submit">Subscribe Now</button>
-                        <div style="position: absolute; left: -5000px;">
-                            <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-                        </div>
-
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
 
 </main>
 {% endblock body %}
