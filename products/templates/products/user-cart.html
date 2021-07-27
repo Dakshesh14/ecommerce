@@ -1,5 +1,6 @@
 {% extends 'layouts/layout.html' %}
 
+
 {% block body %}
 <!--================Cart Area =================-->
 <section class="cart_area">
@@ -17,7 +18,9 @@
                     </thead>
                     <tbody>
 
-
+                        
+                        {% if qs %}
+                            
                         {% for cart_item in qs %}
                         <tr>
                             <td>
@@ -25,8 +28,14 @@
                                     <div class="d-flex">
                                         <img src="{{ cart_item.item.get_first_thumbnail_img.url }}" alt="">
                                     </div>
-                                    <div class="media-body">
-                                        <p>{{ cart_item.item.title }}</p>
+                                    <div class="media-body d-flex align-items-center justify-content-between">
+                                        <a href="{% url 'frontend:frontend' %}item/{{ cart_item.item.title_slug }}"
+                                            class="text-dark">
+                                            <p>{{ cart_item.item.title }}</p>
+                                        </a>
+                                        <a href="{% url 'products:remove-item' cart_item.item.title_slug %}">
+                                            <i class="ti-close ml-3 text-danger"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </td>
@@ -35,8 +44,9 @@
                             </td>
                             <td>
                                 <div class="product_count">
-                                    <input type="text" name="quantity" id="sst{{cart_item.id}}" maxlength="12"
-                                        value="{{ cart_item.quantity }}" title="Quantity:" class="input-text qty">
+                                    <p>
+                                        {{ cart_item.quantity }}
+                                    </p>
                                 </div>
                             </td>
                             <td>
@@ -45,14 +55,17 @@
                         </tr>
                         {% endfor %}
 
-                        <tr class="bottom_button">
-                            <td>
-                                <a class="button" href="#">Update Cart</a>
-                            </td>
+                        {% else %}
+
+                        <tr>
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td>No item in your cart</td>
                         </tr>
+
+                        {% endif %}
+                            
 
                         <tr>
                             <td></td>
@@ -67,10 +80,14 @@
                         <tr class="out_button_area">
                             <td class="d-none-l"></td>
                             <td class=""></td>
+                            <td></td>
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn" href="#">Continue Shopping</a>
-                                    <a class="primary-btn ml-2" href="#">Proceed to checkout</a>
+                                    <a class="gray_btn" href="{% url 'frontend:frontend' %}items">Continue Shopping</a>
+                                    <form action="{% url 'products:order' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="primary-btn border-0 ml-2">Proceed to checkout</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

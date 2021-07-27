@@ -1,5 +1,3 @@
-import uuid
-
 from datetime import date
 
 from django.db import models
@@ -125,7 +123,7 @@ class Order(models.Model):
         ('F', 'Finished'),
     )
 
-    order_id = models.UUIDField(default=uuid.uuid4, unique=True)
+    order_id = models.CharField(default="", unique=True, max_length=350)
     user = models.ForeignKey(User, related_name="user_order", on_delete=models.CASCADE)
     status = models.CharField(choices=order_status, max_length=1, default='P')
     created_date = models.DateField(auto_now=True)

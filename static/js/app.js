@@ -15,7 +15,8 @@ let getCookie = function() { // for django csrf protection
 };
 
 
-const cartActive = (slug, quantity = 1, action) => {
+const cartActive = (slug, quantity, action) => {
+    console.log(quantity);
     let token = getCookie();
     axios({
         method: action,

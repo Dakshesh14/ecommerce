@@ -1,0 +1,61 @@
+{% extends 'layouts/layout.html' %}
+
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-4 ml-auto">
+                <div class="order_box">
+                    <h2>Your Order</h2>
+                    <ul class="list">
+                        <li>
+                            <a href="#">
+                                <h4>Product <span>Total</span></h4>
+                            </a>
+                        </li>
+                        {% for order in order.order.all %}
+                        <li>
+                            {{ order.item.title }}
+                            <span class="middle">x {{ order.quantity }}</span>
+                            <span class="last">${{ order.item.price }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="list list_2">
+                        <li><a href="#">Total <span>${{ order.total_price }}</span></a></li>
+                    </ul>
+                    <div class="text-center">
+                        <button class="button button-paypal" type="button" id="rzp-pay-btn">Proceed to RazorPay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+
+{% block js %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+    var options = {
+        "amount": "{{ response.amount }}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "{{ response.currency }}",
+        "name": "Dakshesh",
+        "description": "Complete Your Payment",
+        "order_id": "{{ response.id }}",
+        "callback_url": "{% url 'products:payment-complete' %}",
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    document.getElementById('rzp-pay-btn').onclick = function (e) {
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
+{% endblock js %}

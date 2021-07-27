@@ -174,3 +174,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # # https://pypi.org/project/django-ckeditor/
 
 CKEDITOR_UPLOAD_PATH = 'uploads'
+
+
+RAZORPAY_KEY = os.environ["RAZORPAY_KEY"]
+RAZORPAY_SECURE_KEY = os.environ["RAZORPAY_SECURE_KEY"]

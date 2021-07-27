@@ -24,30 +24,6 @@
     <!-- custom css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    <!-- linking js -->
-
-    <!-- jquery -->
-    <script defer src="{% static 'vendors/jquery/jquery-3.2.1.min.js' %}"></script>
-    <script defer src="{% static 'vendors/jquery.ajaxchimp.min.js' %}"></script>
-
-    <!-- bootstrap -->
-    <script defer src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js' %}"></script>
-
-    <!-- axios -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-
-    <!-- sweetalert2 -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.20/sweetalert2.min.js"></script>
-
-    <!-- custom  -->
-    <script defer>
-        const cartActiveUrl = "{% url 'products:cart' %}"
-    </script>
-    <script defer src="{% static 'js/app.js' %}"></script>
-
-    {% block js %}{% endblock js %}
-
-
 </head>
 
 <body>
@@ -58,6 +34,29 @@
 
     {% include 'layouts/footer.html' %}
 
+
+    <!-- linking js -->
+
+    <!-- jquery -->
+    <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'vendors/jquery.ajaxchimp.min.js' %}"></script>
+
+    <!-- bootstrap -->
+    <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+    <!-- sweetalert2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.20/sweetalert2.min.js"></script>
+
+    <!-- custom  -->
+    <script>
+        const cartActiveUrl = "{% url 'products:cart' %}"
+    </script>
+    <script src="{% static 'js/app.js' %}"></script>
+
+    {% block js %}{% endblock js %}
 </body>
 
 </html>
