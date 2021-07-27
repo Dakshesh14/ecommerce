@@ -11,19 +11,21 @@
     <link rel="stylesheet" href="{% static 'vendors/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'vendors/fontawesome/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'vendors/nice-select/nice-select.css' %}">
-    <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.20/sweetalert2.min.css"/>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <script defer src="{% static 'vendors/jquery/jquery-3.2.1.min.js' %}"></script>
     <script defer src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js' %}"></script>
-    <script defer src="{% static 'vendors/skrollr.min.js' %}"></script>
-
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
     <script defer src="{% static 'vendors/jquery.ajaxchimp.min.js' %}"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.20/sweetalert2.min.js"></script>
+    <script defer>
+        const addToCartUrl = "{% url 'products:cart' %}"
+    </script>
     <script defer src="{% static 'js/app.js' %}"></script>
 
     {% block js %}{% endblock js %}

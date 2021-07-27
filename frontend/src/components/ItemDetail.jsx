@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
     useParams,
@@ -16,11 +16,16 @@ import TopProducts from './TopProducts';
 function ItemDetail() {
 
     let { slug } = useParams();
+    const [quantity, setQuantity] = useState(1);
 
     const { loading, item } = useFetchItemDetail(slug);
 
     if (loading) {
         return <Spinner />
+    }
+
+    const handleChange = e => {
+        setQuantity(e.target.value);
     }
 
     return (
@@ -57,9 +62,13 @@ function ItemDetail() {
 
                                 <div className="product_count mt-2">
                                     <label htmlFor="qty">Quantity:</label>
-                                    <input type="text" name="qty" id="sst" size="2" maxLength="12" defaultValue="1" title="Quantity:"
-                                        className="input-text qty" />
-                                    <a className="button primary-btn ml-2" href="#">Add to Cart</a>
+                                    <input type="text" name="qty" id="sst" size="2" maxLength="12" title="Quantity:"
+                                        className="input-text qty" value={quantity} onChange={handleChange} />
+                                    <span
+                                        className="button primary-btn ml-2"
+                                        type="button"
+                                        onClick={() => addToCart(item.title_slug, quantity)}
+                                    >Add to Cart</span>
                                 </div>
                             </div>
                         </div>

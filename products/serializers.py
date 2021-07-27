@@ -5,6 +5,7 @@ from .models import (
     Item,
     ItemImage,
     Category,
+    Cart,
 )
 
 
@@ -19,10 +20,6 @@ class CategoryListSerializer(serializers.ModelSerializer):
 
 class ItemListSerializer(serializers.ModelSerializer):
     category = serializers.CharField(source="category.ct")
-    detail = serializers.HyperlinkedIdentityField(
-        view_name='item-detail',
-        lookup_field="title_slug"
-    )
     thumbnail = serializers.ImageField(source="get_first_thumbnail_img")
 
     class Meta:
@@ -31,7 +28,6 @@ class ItemListSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'content',
-            'detail',
             'price',
             'title_slug',
             'category',
@@ -63,6 +59,7 @@ class ItemDetailSerializer(serializers.ModelSerializer):
         model = Item
         fields = (
             'title',
+            'title_slug',
             'content',
             'price',
             'status',
@@ -81,6 +78,14 @@ class ItemDetailSerializer(serializers.ModelSerializer):
         serializered_children = ItemImageSerializer(children, many=True)
         return serializered_children.data
 
+
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
+        fields = (
+            'item',
+            'quantity',
+        )
 
 class ItemImageSerializer(serializers.ModelSerializer):
     class Meta:
