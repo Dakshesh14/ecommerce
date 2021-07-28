@@ -7,7 +7,7 @@ function Carousel({ images }) {
                 {
                     images.map((img, index) => (
                         <div key={img.image} className={"carousel-item" + (index === 0 ? " active" : '')}>
-                            <img src={'..' + img.image} className="d-block w-100" alt="item photo" />
+                            <img src={img.image} className="d-block w-100" alt="item photo" />
                         </div>
                     ))
                 }
