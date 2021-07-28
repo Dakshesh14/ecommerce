@@ -164,6 +164,10 @@ def payment_success(request):
         order.status = 'A'
         order.save()
 
+        for order_item in order.order.all():
+            order_item.ordered = True
+            order_item.save()
+
         return render(request, "products/success.html", {
             "qs": order,
         })

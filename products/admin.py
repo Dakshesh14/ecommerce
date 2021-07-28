@@ -15,10 +15,44 @@ class InLinesImages(admin.TabularInline):
     max_num = 10
 
 
-admin.site.register(Category)
-admin.site.register(Cart)
-admin.site.register(Order)
-admin.site.register(OrderItem)
+class OrderItemInline(admin.StackedInline):
+    model = OrderItem
+    extra = 0
+    readonly_fields = (
+        'user',
+        'item',
+        'quantity',
+        'ordered',
+    )
+    can_delete = False
+
+    # for making add new order not possible
+    def has_add_permission(self, request, obj=None):
+        return False
+
+@admin.register(Order)
+class Admin(admin.ModelAdmin):
+    list_display = (
+        'order_id',
+        'status',
+        'total_price',
+    )
+    list_filter = (
+        'status',
+        'created_date',
+    )
+    inlines = [
+        OrderItemInline,
+    ]
+    readonly_fields = (
+        'order_id',
+        'user',
+        'created_date',
+        'total_price',
+    )
+    search_fields = (
+        'order_id',
+    )
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
@@ -35,3 +69,5 @@ class ItemAdmin(admin.ModelAdmin):
     inlines = [
         InLinesImages,
     ]
+
+admin.site.register(Category)
