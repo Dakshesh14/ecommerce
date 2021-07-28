@@ -123,7 +123,7 @@ class Order(models.Model):
         ('F', 'Finished'),
     )
 
-    order_id = models.CharField(default="", unique=True, max_length=350)
+    order_id = models.CharField(default="" , max_length=350)
     user = models.ForeignKey(User, related_name="user_order", on_delete=models.CASCADE)
     status = models.CharField(choices=order_status, max_length=1, default='P')
     created_date = models.DateField(auto_now=True)
